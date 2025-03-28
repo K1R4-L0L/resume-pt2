@@ -50,7 +50,13 @@ def main():
     resume_path = input("Enter the path to the resume file (PDF or DOCX): ")
     required_skills_input = input("Enter required skills (comma-separated): ")
     required_skills = [skill.strip().lower() for skill in required_skills_input.split(',')]
-    min_experience_years = int(input("Enter minimum required experience in years: "))
+
+    # Validate user input for minimum experience years
+    try:
+        min_experience_years = int(input("Enter minimum required experience in years: "))
+    except ValueError:
+        print("Invalid input. Please enter a valid number for experience.")
+        return
 
     if resume_path.lower().endswith('.pdf'):
         resume_text = extract_text_from_pdf(resume_path)
@@ -75,7 +81,7 @@ def main():
     print(f"Required Skills: {required_skills}")
     print(f"Minimum Experience (Years): {min_experience_years}")
     
-    if resume_score > len(required_skills) + min_experience_years*2:
+    if resume_score > len(required_skills) + min_experience_years * 2:
         print("Resume is a good fit.")
     else:
         print("Resume does not meet the criteria.")
